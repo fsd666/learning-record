@@ -338,3 +338,22 @@ Promise.prototype.catch = function (rejected) {
 }
 
 module.exports = Promise
+
+function create(c, ...args) {
+  const obj = function () {}
+  obj.__proto__ = c.prototype
+  c.call(obj, ...args)
+  return obj
+}
+
+function Foo(name) {
+  this._name = name || 'fansida'
+}
+
+Foo.prototype.print = function () {
+  console.log(this._name)
+}
+
+const f = create(Foo, 'linzhenxin')
+
+f.print()
